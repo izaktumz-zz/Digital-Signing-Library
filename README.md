@@ -1,5 +1,3 @@
-[![Build Status](https://dev.azure.com/geoftums/Digital%20Signing/_apis/build/status/geoftums.Digital-Signing-Library)](https://dev.azure.com/geoftums/Digital%20Signing/_build/latest?definitionId=9)
-
 # Digital-Signing-Library
 a .Net library to sign and verify document/data.
 
