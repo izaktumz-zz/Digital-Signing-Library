@@ -26,9 +26,11 @@ var digitalSigning=new DigitalSigning.Services.DigitalSigning();//instantiate th
 [Sign The document.NB:Store the signature for later verification]
 ------------------------------------------------------------------
 -The document or data can be a path to a document you want to sign.
+
 var signature=digitalSigning.SignDocument("document/data you want to sign", "a key/name to later identify the original owner");
 
 [Verify signature.Returns true if successful otherwise false]
 -------------------------------------------------------------
 The document or data can be a path to a document you want to sign.
+
 var verifySignature=digitalSigning.VerifySignature("signature of the original document/data","the document/data to verify", "the key used to sign the document/data");
