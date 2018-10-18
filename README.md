@@ -1,5 +1,5 @@
 # Digital-Signing-Library
-a .Net library to sign and verify document/data.
+a .Net library to sign and verify documents i.e.PDFs or any other data.
 
 # Digital-Signing
 a .Net library to sign and verify document/data.
