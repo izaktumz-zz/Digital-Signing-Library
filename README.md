@@ -13,6 +13,9 @@ PM->Install-Package DigitalSigning.Utility.Package
 -------
 -Use the Nuget Manager to locate and install the package i.e.
  DigitalSigning.Utility.Package
+ 
+ -Namespace
+ Using DigitalSigning
 
 [Overview]
 ----------
@@ -23,13 +26,36 @@ PM->Install-Package DigitalSigning.Utility.Package
 ----------------
 var digitalSigning=new DigitalSigning.Services.DigitalSigning();//instantiate the class.
 
-[Sign The document.NB:Store the signature for later verification]
+UnicodeEncoding byteConverter=new UnicodeEncoding();//use this to convert your data to bytes i.e. byteConverter.GetBytes('your data')
+
+[Retrieve Certificates]
+-----------------------
+-The method below retrieves certificates stored in your computer.It returns an array of certificates found.
+
+var certificates=digitalSigning.GetCertificates("StoreName","StoreLocation")
+
+var certificateToUse=certificates[n]..where n represents a number i.e. 1 or 2 or 3..etc.This returns a single certificate
+
+[Sign The document using a Certificate i.e.X509 .NB:Store the signature for later verification]
+-----------------------------------------------------------------------------------------------
+-The SignUsingCertificate takes two parameters.i.e. data you want to sign and the X509 certificate you want to use
+
+var signature=digitalSigning.SignUsingCertificate('data(convert your data to bytes)'  ,  'certificateToUse(From Above explanation) or an X509 Certificate ')
+
+[Verify The document using a Certificate i.e.X509 ]
+--------------------------------------------------
+-The VerifyUsingCertificate takes three parameters.
+
+var signature=digitalSigning.VerifyUsingCertificate('data to verify(in bytes)' , 'signature of the original data', 'X509 Certificate used to sign the document or data')
+
+
+[Sign The document using a Key.NB:Store the signature for later verification]
 ------------------------------------------------------------------
 -The document or data can be a path to a document you want to sign.
 
 var signature=digitalSigning.SignDocument("document/data you want to sign", "a key/name to later identify the original owner");
 
-[Verify signature.Returns true if successful otherwise false]
+[Verify signature using a Key.Returns true if successful otherwise false]
 -------------------------------------------------------------
 The document or data can be a path to a document you want to sign.
 
