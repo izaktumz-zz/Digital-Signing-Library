@@ -23,7 +23,9 @@ PM->Install-Package DigitalSigning.Utility.Package
  
 It contains method to Hash,Sign and Verify Documents
 
-NB:Store the Signatures for Later Verification.
+[NB]:
+-----
+Store the Signatures for Later Verification.
 
 [Implementation]
 ----------------
