@@ -31,7 +31,9 @@ Store the Signatures for Later Verification.
 ----------------
 var digitalSigning=new DigitalSigning.Services.DigitalSigning();//instantiate the class.
 
-UnicodeEncoding byteConverter=new UnicodeEncoding();//use this to convert your data to bytes i.e. byteConverter.GetBytes('your data')
+UnicodeEncoding byteConverter=new UnicodeEncoding();//use this to convert your data to bytes 
+
+i.e. byteConverter.GetBytes('your data')
 
 [Retrieve Certificates]
 -----------------------
