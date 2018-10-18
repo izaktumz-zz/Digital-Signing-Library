@@ -20,7 +20,10 @@ PM->Install-Package DigitalSigning.Utility.Package
 [Overview]
 ----------
 -The main class that implements the Digital Signing and Verification is called DigitalSigning.
- It contains method to Hash,Sign and Verify Documents
+ 
+It contains method to Hash,Sign and Verify Documents
+
+NB:Store the Signatures for Later Verification.
 
 [Implementation]
 ----------------
@@ -36,20 +39,20 @@ var certificates=digitalSigning.GetCertificates("StoreName","StoreLocation")
 
 var certificateToUse=certificates[n]..where n represents a number i.e. 1 or 2 or 3..etc.This returns a single certificate
 
-[Sign The document using a Certificate i.e.X509 .NB:Store the signature for later verification]
------------------------------------------------------------------------------------------------
+[Sign The document using a Certificate i.e.X509]
+-----------------------------------------------
 -The SignUsingCertificate takes two parameters.i.e. data you want to sign and the X509 certificate you want to use
 
 var signature=digitalSigning.SignUsingCertificate('data(convert your data to bytes)'  ,  'certificateToUse(From Above explanation) or an X509 Certificate ')
 
-[Verify The document using a Certificate i.e.X509 ]
---------------------------------------------------
+[Verify The document using a Certificate i.e.X509 Returns true if successful otherwise false ]
+---------------------------------------------------------------------------------------------
 -The VerifyUsingCertificate takes three parameters.
 
 var signature=digitalSigning.VerifyUsingCertificate('data to verify(in bytes)' , 'signature of the original data', 'X509 Certificate used to sign the document or data')
 
 
-[Sign The document using a Key.NB:Store the signature for later verification]
+[Sign The document using a Key]
 ------------------------------------------------------------------
 -The document or data can be a path to a document you want to sign.
 
