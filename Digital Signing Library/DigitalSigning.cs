@@ -1,9 +1,38 @@
-﻿using System.Security.Cryptography;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
-namespace Digital_Signing_Library
+namespace DigitalSigning.Services
 {
     public class DigitalSigning
     {
+        public string HashAlgorithm { get; set; }
+        public DigitalSigning()
+        {
+            HashAlgorithm = "SHA1";
+        }
+        public X509Certificate2Collection GetCertificates(string storeName, StoreLocation storeLocation)
+        {
+            var store = new X509Store(storeName, storeLocation);
+            store.Open(OpenFlags.ReadOnly);
+            return store.Certificates;
+        }
+
+        public byte[] HashData(byte[] data) => new SHA1Managed().ComputeHash(data);
+
+        public byte[] SignUsingCertificate(byte[] data, X509Certificate2 certificateForSigning)
+        {
+            RSACryptoServiceProvider csp = (RSACryptoServiceProvider)certificateForSigning.PrivateKey;
+            var hashedData = HashData(data);
+            return csp.SignHash(hashedData, GetHashAlgorithm(HashAlgorithm));
+        }
+        public bool VerifyUsingCertificate(byte[] dataToVerify, byte[] signatureOfOriginalData, X509Certificate2 certificateUsedToSign)
+        {
+            var hashedData = HashData(dataToVerify);
+            RSACryptoServiceProvider csp = (RSACryptoServiceProvider)certificateUsedToSign.PublicKey.Key;
+            return csp.VerifyHash(hashedData, GetHashAlgorithm(HashAlgorithm), signatureOfOriginalData);
+        }
+        public string GetHashAlgorithm(string HashAlgorithm) => CryptoConfig.MapNameToOID(HashAlgorithm);
+
         public byte[] HashDocument(string document)
         {
             byte[] hashedDocument = null;
@@ -13,15 +42,6 @@ namespace Digital_Signing_Library
             }
             return hashedDocument;
         }
-
-        /// <summary>
-        /// This method returns a Signed Document.Save the signature for later 
-        /// use for verification.
-        /// </summary>
-        /// <param name="document"></param>
-        /// <param name="key">Any name to help identify the original owner 
-        /// </param>
-        /// <returns></returns>
         public byte[] SignDocument(string document, string key)
         {
             byte[] hashedDocument = HashDocument(document);
@@ -36,14 +56,6 @@ namespace Digital_Signing_Library
             }
             return signedDocument;
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="signatureOfTheOriginaDocument">The SignedDocument method creates one.</param>
-        /// <param name="documentToVerify"></param>
-        /// <param name="key">The name used to Sign the document above</param>
-        /// <returns></returns>
         public bool VerifySignature(byte[] signatureOfTheOriginaDocument, string documentToVerify, string key)
         {
             byte[] hashed_DocumentToVerify = null;
