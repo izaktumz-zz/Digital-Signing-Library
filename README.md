@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/OpenDevProjects/Digital-Signing-Library/_apis/build/status/geoftums.Digital-Signing-Library)](https://dev.azure.com/OpenDevProjects/Digital-Signing-Library/_build/latest?definitionId=2)
+
 # Digital-Signing-Library
 a .Net library to sign and verify documents i.e.PDFs or any other data.
 
